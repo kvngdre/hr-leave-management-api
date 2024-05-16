@@ -10,8 +10,15 @@ public class LeaveAllocationRepository(ApplicationDbContext dbContext)
 {
     private readonly ApplicationDbContext _context = dbContext;
 
+    public async Task<IReadOnlyList<LeaveAllocation>> GetLeaveAllocationsWithDetails(int id)
+    {
+        return await _context.LeaveAllocations.Include(l => l.LeaveType)
+                                              .ToListAsync();
+    }
+
     public async Task<LeaveAllocation?> GetLeaveAllocationWithDetails(int id)
     {
-        return await _context.LeaveAllocations.Include(l => l.LeaveType).FirstOrDefaultAsync(q => q.Id == id);
+        return await _context.LeaveAllocations.Include(l => l.LeaveType)
+                                              .FirstOrDefaultAsync(q => q.Id == id);
     }
 }
