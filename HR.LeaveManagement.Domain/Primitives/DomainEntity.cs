@@ -5,4 +5,6 @@ public class DomainEntity
     public int Id { get; set; }
 
     public DateTime DateCreated { get; set; }
+
+    public DateTime LastModified { get; set; }
 }
